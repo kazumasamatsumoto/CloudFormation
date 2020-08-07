@@ -36,7 +36,6 @@ Mappings:
   EnvironmentToInstanceType:
     development:
       instanceType: t2.micro
-    # we want a bigger instance type in production
     production:
       instanceType: t2.small
 
@@ -45,6 +44,4 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !FindInMap [EnvironmentToInstanceType, !Ref 'EnvironmentName', instanceType]
-      # Note we use the pseudo parameter AWS::Region
-      # AWS::RegionはCloudFormationの擬似変数
-      ImageId: !FindInMap [AWSRegionArch2AMI, !Ref 'AWS::Region', HVM64]
+      ImageId: !FindInMap [AWSRegionArchAMI, !Ref 'AWS::Region', HVM64]
